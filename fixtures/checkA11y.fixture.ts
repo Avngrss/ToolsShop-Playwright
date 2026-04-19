@@ -12,7 +12,8 @@ export const test = base.extend<A11yFixtures>({
         debug = false,
       } = options;
 
-      await page.waitForLoadState("networkidle");
+      await page.waitForSelector("body", { state: "visible" });
+      await page.waitForTimeout(300);
 
       const axe = new AxeBuilder({ page });
       const results = await axe.analyze();

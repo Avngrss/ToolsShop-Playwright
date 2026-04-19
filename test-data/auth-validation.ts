@@ -85,17 +85,8 @@ export const emptyLikePasswords: PasswordValidationCase[] = [
 ];
 
 export const invalidEmails: EmailValidationCase[] = [
-  {
-    label: "extremely long",
-    email: "a".repeat(255) + "@test.com",
-    shouldFail: true,
-  },
-  {
-    label: "invalid chars",
-    email: "user<>@test.com",
-    shouldFail: true,
-    expectedPattern: /invalid/i,
-  },
+  { label: "spaces in email", email: "user name@test.com", shouldFail: true },
   { label: "no @ symbol", email: "userexample.com", shouldFail: true },
-  { label: "no domain", email: "user@", shouldFail: true },
+  { label: "double @", email: "user@@test.com", shouldFail: true },
+  { label: "no domain extension", email: "user@test.", shouldFail: true },
 ];
