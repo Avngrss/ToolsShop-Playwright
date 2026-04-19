@@ -28,8 +28,10 @@ export class LoginPage {
   }
 
   async login(credentials: LoginCredentials): Promise<void> {
-    await this.emailField.fill(credentials.email);
-    await this.passwordField.fill(credentials.password);
+    await this.emailField.pressSequentially(credentials.email, { delay: 80 });
+    await this.passwordField.pressSequentially(credentials.password, {
+      delay: 100,
+    });
     await this.submitButton.click();
   }
 
