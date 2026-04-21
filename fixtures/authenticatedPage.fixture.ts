@@ -8,7 +8,9 @@ interface UiAuthFixtures {
 
 export const test = base.extend<UiAuthFixtures>({
   authPage: async ({ page, request }, use) => {
-    const response = await request.post("/users/login", {
+    const apiBase =
+      process.env.API_BASE_URL || "https://api.practicesoftwaretesting.com";
+    const response = await request.post(`${apiBase}/users/login`, {
       data: { email: testUser.email, password: testUser.password },
     });
 
@@ -26,7 +28,7 @@ export const test = base.extend<UiAuthFixtures>({
     }
 
     await page.addInitScript((token) => {
-      window.localStorage.setItem("auth_token", token);
+      window.localStorage.setItem("auth-token", token);
     }, body.access_token);
 
     await use(page);
