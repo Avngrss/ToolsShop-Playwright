@@ -10,3 +10,8 @@ export const testUser = {
   email: getEnvVar("TEST_USER_EMAIL"),
   password: getEnvVar("TEST_USER_PASSWORD"),
 };
+
+export const adminUser = {
+  email: getEnvVar("TEST_ADMIN_EMAIL"),
+  password: getEnvVar("TEST_ADMIN_PASSWORD"),
+};
