@@ -8,7 +8,7 @@
 ![ESLint](https://img.shields.io/badge/ESLint-8.x-4B32C3?logo=eslint&logoColor=white)
 ![Prettier](https://img.shields.io/badge/Prettier-3.x-F7B93E?logo=prettier&logoColor=white)
 ![Zod](https://img.shields.io/badge/Zod-3.x-3E6B9B?logo=zod&logoColor=white)
-![Allure](https://img.shields.io/badge/Allure-2.x-0080C0?logo=allure&logoColor=white)
+![Allure](https://img.shields.io/badge/Allure-3.x-0080C0?logo=allure&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Last Commit](https://img.shields.io/github/last-commit/Avngrss/ToolsShop-Playwright?logo=git)
 
