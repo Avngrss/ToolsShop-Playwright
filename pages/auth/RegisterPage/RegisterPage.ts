@@ -16,6 +16,8 @@ export class RegisterPage {
   readonly emailField: Locator;
   readonly passwordField: Locator;
   readonly registerSubmitButton: Locator;
+  readonly addressLoader: Locator;
+  readonly errorMessages: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -32,9 +34,15 @@ export class RegisterPage {
     this.emailField = page.locator('[data-test="email"]');
     this.passwordField = page.locator('[data-test="password"]');
     this.registerSubmitButton = page.locator('[data-test="register-submit"]');
+    this.addressLoader = page.getByText("Looking up your address...");
+    this.errorMessages = this.page.locator(".alert-danger");
   }
 
-  async registerUser(userData: User) {
+  async goto(): Promise<void> {
+    await this.page.goto("/auth/register");
+  }
+
+  async registerUser(userData: User): Promise<void> {
     await this.firstNameField.fill(userData.first_name);
     await this.lastNameField.fill(userData.last_name);
     await this.dboField.fill(userData.dob);
@@ -48,7 +56,8 @@ export class RegisterPage {
     await this.passwordField.fill(userData.password);
   }
 
-  async submitForm() {
+  async submitForm(): Promise<void> {
+    await this.page.waitForTimeout(5000);
     await this.registerSubmitButton.click();
   }
 }

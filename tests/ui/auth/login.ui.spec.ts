@@ -31,7 +31,7 @@ test.describe("Login UI", { tag: ["@ui", "@auth"] }, () => {
         },
       });
 
-      await test.step("Audit Login Form", async () => {
+      await test.step("Verify accessibility of login form", async () => {
         await checkA11y("Login Form", {
           strict: false,
           debug: true,
@@ -51,7 +51,7 @@ test.describe("Login UI", { tag: ["@ui", "@auth"] }, () => {
         });
       });
 
-      await test.step("Audit Dashboard", async () => {
+      await test.step("Verify accessibility of dashboard", async () => {
         await checkA11y("Dashboard", { strict: false });
       });
     },
