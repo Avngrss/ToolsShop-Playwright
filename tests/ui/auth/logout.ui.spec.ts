@@ -26,7 +26,6 @@ test("Logout", { tag: ["@ui", "@auth", "@smoke"] }, async ({ authPage }) => {
 
   await test.step("Verify authenticated state", async () => {
     await expect(authPage).toHaveURL(/\/$/);
-    await authPage.waitForLoadState("networkidle");
     await expect(authPage).toHaveScreenshot("logout-authenticated.png", {
       fullPage: false,
       maxDiffPixels: 40,
