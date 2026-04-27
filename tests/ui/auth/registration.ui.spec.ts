@@ -1,6 +1,6 @@
 import { test, expect } from "../../../fixtures/auth-fixtures";
 import { createUser } from "../../../utils/userFactory";
-import { RegisterPage } from "../../../pages/auth/RegisterPage/RegisterPage";
+import { RegisterPage } from "../../../pages/AuthPages/RegisterPage/RegisterPage";
 import { setAllureMeta } from "../../../utils/allure-utils";
 import { registrationNegativeCases } from "../../../test-data/registration-negative";
 
@@ -47,7 +47,6 @@ test.describe("Registration UI", { tag: ["@ui", "@auth"] }, () => {
 
       await test.step("Ensure user is redirected to login page post-registration", async () => {
         await expect(page).toHaveURL("/auth/login");
-        await page.waitForLoadState("networkidle");
         await expect(page).toHaveScreenshot("redirect-to-login-page.png", {
           fullPage: false,
           maxDiffPixels: 40,

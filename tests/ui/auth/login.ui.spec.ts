@@ -1,5 +1,5 @@
 import { test, expect } from "../../../fixtures/auth-fixtures";
-import { LoginPage } from "../../../pages/auth/LoginPage/LoginPage";
+import { LoginPage } from "../../../pages/AuthPages/LoginPage/LoginPage";
 import { negativeLoginCases } from "../../../test-data/auth-validation";
 import { setAllureMeta } from "../../../utils/allure-utils";
 
@@ -44,7 +44,6 @@ test.describe("Login UI", { tag: ["@ui", "@auth"] }, () => {
 
       await test.step("Verify redirect to Account page", async () => {
         await expect(page).toHaveURL(/dashboard|account/i);
-        await page.waitForLoadState("networkidle");
         await expect(page).toHaveScreenshot("dashboard-after-login.png", {
           fullPage: false,
           maxDiffPixels: 40,

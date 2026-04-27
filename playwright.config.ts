@@ -41,11 +41,19 @@ export default defineConfig({
         viewport: { width: 1920, height: 1080 },
         baseURL: process.env.BASE_URL,
       },
+
       testMatch: /.*\.ui\.spec\.ts$/,
     },
     {
       name: "api",
-      use: { baseURL: process.env.API_URL, browserName: undefined },
+      use: {
+        baseURL: process.env.API_URL,
+        browserName: undefined,
+        extraHTTPHeaders: {
+          Accept: "application/json",
+        },
+      },
+
       testMatch: /.*\.api\.spec\.ts$/,
     },
   ],
