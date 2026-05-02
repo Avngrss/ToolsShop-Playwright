@@ -39,12 +39,11 @@ export const ProductSchema = z.object({
 export const ProductResponseSchema = z.object({
   current_page: z.number(),
   data: z.array(ProductSchema),
-  from: z.number(),
+  from: z.number().nullable(),
   last_page: z.number(),
   per_page: z.number(),
-  to: z.number(),
+  to: z.number().nullable(),
   total: z.number(),
 });
-
 export type Product = z.infer<typeof ProductSchema>;
 export type ProductResponse = z.infer<typeof ProductResponseSchema>;
