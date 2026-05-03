@@ -1,4 +1,4 @@
-import { test, expect } from "../../../fixtures/auth-fixtures";
+import { test, expect } from "../../../fixtures/data/users.fixture";
 import { HomePage } from "../../../pages/HomePage/HomePage";
 import { setAllureMeta } from "../../../utils/allure-utils";
 
@@ -26,7 +26,7 @@ test.describe("Price Filter UI", { tag: ["@ui", "@filter", "@price"] }, () => {
       owner: "QA Team",
       suite: "Products",
       feature: "Filtering",
-      qaseCaseId: "?suite=3&case=20",
+      qaseCaseId: "?suite=5&case=11",
       parameters: { Browser: test.info().project.name, Min: "0", Max: "100" },
     });
 
@@ -65,7 +65,7 @@ test.describe("Price Filter UI", { tag: ["@ui", "@filter", "@price"] }, () => {
       owner: "QA Team",
       suite: "Products",
       feature: "Filtering",
-      qaseCaseId: "?suite=3&case=21",
+      qaseCaseId: "?suite=5&case=13",
       parameters: { Browser: test.info().project.name, Min: "200", Max: "200" },
     });
 

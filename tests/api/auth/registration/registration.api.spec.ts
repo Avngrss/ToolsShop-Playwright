@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { createUser } from "../../../../utils/userFactory";
 import { validateSchema } from "../../../../utils/validateSchema";
 import { registerResponseSchema } from "../../../../schemas/register.schema";
