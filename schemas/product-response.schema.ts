@@ -13,12 +13,13 @@ export const ProductImageSchema = z.object({
 export const CategorySchema = z.object({
   id: z.string(),
   name: z.string(),
-  slug: z.string(),
+  slug: z.string().optional(),
 });
 
 export const BrandSchema = z.object({
   id: z.string(),
   name: z.string(),
+  slug: z.string().optional(),
 });
 
 export const ProductSchema = z.object({

@@ -1,3 +1,4 @@
+// fixtures/core/test-base.fixture.ts
 import { test as base, expect } from "@playwright/test";
 import * as fs from "fs";
 import path from "path";
@@ -18,7 +19,6 @@ baseTest.afterEach(async ({}, testInfo) => {
             : file.includes("-actual")
               ? "🟥 Actual Result"
               : "🟦 Expected Baseline";
-
           await testInfo.attach(label, {
             path: path.join(outputDir, file),
             contentType: "image/png",

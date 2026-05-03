@@ -1,4 +1,4 @@
-import { test, expect, APIResponse } from "@playwright/test";
+import { APIResponse, expect, test } from "@playwright/test";
 import { testUser } from "../../../../utils/envUser";
 import { invalidLoginPayloads } from "../../../../test-data/auth-validation";
 import { validateSchema } from "../../../../utils/validateSchema";

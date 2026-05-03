@@ -1,23 +1,28 @@
-import { APIResponse } from "@playwright/test";
-import { expect, test } from "../../../../fixtures/authToken.fixture";
+import { APIResponse, expect, test } from "@playwright/test";
+import { loginApi } from "../../../../fixtures/api/api-login.helpers";
 
 test.describe("Logout API", { tag: ["@api", "@auth"] }, () => {
   test(
     "Should successfully logout",
     { tag: ["@smoke"] },
-    async ({ apiClient }) => {
-      let response: APIResponse;
+    async ({ request, playwright }) => {
+      const apiClient = await loginApi(request, playwright);
 
-      await test.step("Send logout request", async () => {
-        response = await apiClient.get("/users/logout");
-      });
-
-      await test.step("Verify 200 status and success message", async () => {
-        expect(response.status()).toBe(200);
-        expect(await response.json()).toMatchObject({
-          message: "Successfully logged out",
+      try {
+        let response: APIResponse;
+        await test.step("Send logout request", async () => {
+          response = await apiClient.get("/users/logout");
         });
-      });
+
+        await test.step("Verify 200 status and success message", async () => {
+          expect(response.status()).toBe(200);
+          expect(await response.json()).toMatchObject({
+            message: "Successfully logged out",
+          });
+        });
+      } finally {
+        await apiClient.dispose();
+      }
     },
   );
 });
