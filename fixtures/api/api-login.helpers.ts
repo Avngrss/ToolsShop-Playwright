@@ -1,4 +1,3 @@
-// fixtures/api/api-login.helpers.ts
 import { APIRequestContext } from "@playwright/test";
 import { LoginResponse } from "../../types/auth";
 import { testUser } from "../../utils/envUser";

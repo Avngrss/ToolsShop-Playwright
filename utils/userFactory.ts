@@ -1,9 +1,7 @@
 import { User, PartialUser } from "../types/auth";
+import { generateUniqueEmail } from "./emailGenerator";
 
 export const createUser = (partialUser: PartialUser = {}): User => {
-  const timestamp = Date.now();
-  const randomSuffix = Math.floor(Math.random() * 1000);
-
   return {
     first_name: "John",
     last_name: "Doe",
@@ -15,7 +13,7 @@ export const createUser = (partialUser: PartialUser = {}): User => {
     city: "New York",
     state: "NY",
     phone: "1234567890",
-    email: `user${timestamp}${randomSuffix}@example.com`,
+    email: partialUser.email || generateUniqueEmail("user"),
     password: "Strong@password123!",
     ...partialUser,
   };

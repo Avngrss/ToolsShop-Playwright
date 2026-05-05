@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, Response } from "@playwright/test";
 
 export class ForgotPassword {
   readonly page: Page;
@@ -33,7 +33,7 @@ export class ForgotPassword {
     await this.forgotPasswordSubmit.click();
   }
 
-  async submitAndWaitForApiError(expectedStatus = 422) {
+  async submitAndWaitForApiError(expectedStatus = 422): Promise<Response> {
     const responsePromise = this.page.waitForResponse(
       (r) =>
         r.url().includes("forgot-password") && r.status() === expectedStatus,
