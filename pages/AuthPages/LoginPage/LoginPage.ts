@@ -35,7 +35,7 @@ export class LoginPage {
     await this.submitButton.click();
   }
 
-  async submit() {
+  async submit(): Promise<void> {
     await this.submitButton.click();
   }
 

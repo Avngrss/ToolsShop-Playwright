@@ -1,4 +1,3 @@
-// fixtures/core/test-base.fixture.ts
 import { test as base, expect } from "@playwright/test";
 import * as fs from "fs";
 import path from "path";

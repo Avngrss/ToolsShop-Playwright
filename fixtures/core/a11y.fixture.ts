@@ -1,4 +1,3 @@
-// fixtures/core/a11y.fixture.ts
 import { test as base, expect } from "./test-base.fixture";
 import AxeBuilder from "@axe-core/playwright";
 import type { AxeResults } from "axe-core";
@@ -26,12 +25,10 @@ export const test = base.extend<A11yFixtures>({
           results.violations.map((v) => v.id).join(", "),
         );
       if (results.violations.length > 0)
-        await test
-          .info()
-          .attach(`♿ A11y Report: ${pageName}`, {
-            body: formatA11yReport(results, pageName),
-            contentType: "text/plain",
-          });
+        await test.info().attach(`♿ A11y Report: ${pageName}`, {
+          body: formatA11yReport(results, pageName),
+          contentType: "text/plain",
+        });
       if (strict)
         expect(
           results.violations,
