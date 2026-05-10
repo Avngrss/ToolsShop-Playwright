@@ -18,4 +18,8 @@ export class FilterComponent {
       .getByRole("checkbox", { name: categoryName })
       .isChecked();
   }
+
+  async clearCategoryFilter(categoryName: string): Promise<void> {
+    await this.page.getByRole("checkbox", { name: categoryName }).uncheck();
+  }
 }
