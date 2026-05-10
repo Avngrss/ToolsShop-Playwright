@@ -34,7 +34,7 @@ test.describe("Search Products UI", { tag: ["@ui", "@search"] }, () => {
     });
 
     await test.step("Verify results and screenshot", async () => {
-      await expect(homePage.SearchComponent.productList).toBeVisible({
+      await expect(homePage.productList).toBeVisible({
         timeout: 10000,
       });
       await checkA11y("Search Results", { strict: false, debug: true });
@@ -69,12 +69,10 @@ test.describe("Search Products UI", { tag: ["@ui", "@search"] }, () => {
     });
 
     await test.step("Verify empty state and screenshot", async () => {
-      await expect(homePage.SearchComponent.emptyState).toBeVisible({
+      await expect(homePage.emptyState).toBeVisible({
         timeout: 10000,
       });
-      await expect(homePage.SearchComponent.emptyState).toContainText(
-        /no products|not found/i,
-      );
+      await expect(homePage.emptyState).toContainText(/no products|not found/i);
       await checkA11y("Search Empty State", { strict: false, debug: true });
       await expect(page.locator("body")).toHaveScreenshot("search-empty.png", {
         maxDiffPixels: 40,
