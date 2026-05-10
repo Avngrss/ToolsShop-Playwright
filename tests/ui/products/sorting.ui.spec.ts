@@ -58,6 +58,7 @@ test.describe("Sorting UI", { tag: ["@ui", "@sorting"] }, () => {
       await expect(homePage.sortingComponent.sortSelect).toHaveValue(
         "name,asc",
       );
+
       await expect(page.locator("body")).toHaveScreenshot(
         "sorting-name-asc.png",
         {
