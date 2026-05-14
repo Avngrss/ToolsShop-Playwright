@@ -19,6 +19,7 @@ test(
       parameters: {
         Browser: test.info().project.name,
         "User Role": "Customer",
+        Coverage: "UI + A11y + Visual Regression",
       },
     });
     await loginUi(page, request);

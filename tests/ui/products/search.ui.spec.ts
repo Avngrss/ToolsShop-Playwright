@@ -26,7 +26,11 @@ test.describe("Search Products UI", { tag: ["@ui", "@search"] }, () => {
       suite: "Products",
       feature: "Search",
       qaseCaseId: "?suite=6&case=16",
-      parameters: { Browser: test.info().project.name, Query: "Wrench" },
+      parameters: {
+        Browser: test.info().project.name,
+        Query: "Wrench",
+        Coverage: "UI + A11y + Visual Regression",
+      },
     });
 
     await test.step("Enter search query", async () => {
@@ -61,6 +65,7 @@ test.describe("Search Products UI", { tag: ["@ui", "@search"] }, () => {
       parameters: {
         Browser: test.info().project.name,
         Query: "nonexistent",
+        Coverage: "UI + A11y + Visual Regression",
       },
     });
 

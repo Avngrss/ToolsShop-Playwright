@@ -27,7 +27,12 @@ test.describe("Price Filter UI", { tag: ["@ui", "@filter", "@price"] }, () => {
       suite: "Products",
       feature: "Filtering",
       qaseCaseId: "?suite=5&case=11",
-      parameters: { Browser: test.info().project.name, Min: "0", Max: "100" },
+      parameters: {
+        Browser: test.info().project.name,
+        Min: "0",
+        Max: "100",
+        Coverage: "UI + A11y + Visual Regression",
+      },
     });
 
     await test.step("Set range and intercept API request", async () => {
@@ -66,7 +71,12 @@ test.describe("Price Filter UI", { tag: ["@ui", "@filter", "@price"] }, () => {
       suite: "Products",
       feature: "Filtering",
       qaseCaseId: "?suite=5&case=13",
-      parameters: { Browser: test.info().project.name, Min: "200", Max: "200" },
+      parameters: {
+        Browser: test.info().project.name,
+        Min: "200",
+        Max: "200",
+        Coverage: "UI + A11y + Visual Regression",
+      },
     });
 
     await test.step("Set range and intercept API request", async () => {

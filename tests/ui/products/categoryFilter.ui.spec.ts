@@ -31,6 +31,7 @@ test.describe(
             Browser: test.info().project.name,
             Category: "Hammer",
             ExpectedBehavior: "Show only Hammer products",
+            Coverage: "UI + A11y + Visual Regression",
           },
         });
 
@@ -102,6 +103,7 @@ test.describe(
           Browser: test.info().project.name,
           Category: "Hand Saw",
           ExpectedResult: "Empty state message",
+          Coverage: "UI + A11y + Visual Regression",
         },
       });
 
@@ -151,6 +153,7 @@ test.describe(
           Browser: test.info().project.name,
           Action: "Clear Filter",
           Category: "Hammer",
+          Coverage: "UI + A11y + Visual Regression",
         },
       });
 

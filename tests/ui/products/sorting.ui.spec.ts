@@ -22,6 +22,7 @@ test.describe("Sorting UI", { tag: ["@ui", "@sorting"] }, () => {
         "Sort Field": "name",
         "Sort Direction": "asc",
         Component: "Native <select>",
+        Coverage: "UI + A11y + Visual Regression",
       },
     });
 
@@ -48,14 +49,14 @@ test.describe("Sorting UI", { tag: ["@ui", "@sorting"] }, () => {
         return url.includes("/products") && url.includes("sort=name,asc");
       });
 
-      await homePage.sortingComponent.selectOption("name,asc");
+      await homePage.SortingComponent.selectOption("name,asc");
 
       const request = await requestPromise;
       expect(request.url()).toContain("sort=name,asc");
     });
 
     await test.step("Verify UI state and capture screenshot", async () => {
-      await expect(homePage.sortingComponent.sortSelect).toHaveValue(
+      await expect(homePage.SortingComponent.sortSelect).toHaveValue(
         "name,asc",
       );
 
