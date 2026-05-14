@@ -7,6 +7,7 @@ import {
   fetchAndValidateProducts,
   validateSortingOrder,
 } from "../../../../helpers/sorting.helper";
+import { setAllureMeta } from "../../../../utils/allure-utils";
 
 test.describe(
   "Sort Products by CO2 Rating",
@@ -16,6 +17,24 @@ test.describe(
       test(`Sort ${label} (${direction.toUpperCase()})`, async ({
         request,
       }) => {
+        await setAllureMeta({
+          title: `Sorting - CO2 Rating: ${label}`,
+          description: `Verify that products are sorted by ${field} in ${direction.toUpperCase()} order`,
+          severity: "normal",
+          priority: "P1",
+          owner: "QA Team",
+          suite: "Products",
+          feature: "Sorting",
+          parameters: {
+            Browser: test.info().project.name,
+            Endpoint: "GET /products",
+            Method: "GET",
+            SortField: field,
+            SortDirection: direction.toUpperCase(),
+            QueryParam: `sort=${field},${direction}`,
+            ExpectedStatus: "200",
+          },
+        });
         const endpoint = `/products?${BASE_PRODUCT_QUERY}&sort=${field},${direction}`;
 
         const products =

@@ -2,6 +2,7 @@ import path from "path";
 import { test, expect } from "../../../fixtures/data/users.fixture";
 import { ContactUsPage } from "../../../pages/ContactUs/ContactUsPage";
 import { createContactUsData } from "../../../test-data/contact-us";
+import { setAllureMeta } from "../../../utils/allure-utils";
 
 test.describe("Contact Us UI", () => {
   let contactUsPage: ContactUsPage;
@@ -12,6 +13,24 @@ test.describe("Contact Us UI", () => {
   });
 
   test("Success Submit Contact Us form", async ({ checkA11y, page }) => {
+    await setAllureMeta({
+      title: "Contact Us UI - Successful Form Submission",
+      description:
+        "Verify that filling out the contact form with valid data and an attachment results in a success message",
+      severity: "critical",
+      priority: "P0",
+      owner: "QA Team",
+      suite: "Contact Us",
+      feature: "Form Submission",
+      qaseCaseId: "?suite=9&case=22",
+      parameters: {
+        Browser: test.info().project.name,
+        Page: "Contact Us",
+        Action: "Fill form + Upload file + Submit",
+        ExpectedResult: "Success message visible",
+        Coverage: "UI + A11y + Visual Regression",
+      },
+    });
     const data = createContactUsData();
     await test.step("Fill out contact form with valid data", async () => {
       await contactUsPage.fillForm(data);
@@ -45,6 +64,24 @@ test.describe("Contact Us UI", () => {
     page,
     checkA11y,
   }) => {
+    await setAllureMeta({
+      title: "Contact Us UI - Empty Form Validation",
+      description:
+        "Verify that submitting an empty contact form displays validation errors for all required fields",
+      severity: "normal",
+      priority: "P1",
+      owner: "QA Team",
+      suite: "Contact Us",
+      feature: "Form Validation",
+      qaseCaseId: "?suite=9&case=56",
+      parameters: {
+        Browser: test.info().project.name,
+        Page: "Contact Us",
+        Action: "Submit empty form",
+        ExpectedResult: "Validation errors for all required fields",
+        Coverage: "UI + A11y + Visual Regression",
+      },
+    });
     await test.step("Attempt to submit empty contact form", async () => {
       await contactUsPage.submit();
     });

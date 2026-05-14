@@ -5,6 +5,7 @@ import {
 } from "../../../../test-data/price-range-cases";
 import { validateSchema } from "../../../../utils/validateSchema";
 import { ProductResponseSchema } from "../../../../schemas/product-response.schema";
+import { setAllureMeta } from "../../../../utils/allure-utils";
 
 test.describe(
   "Filter Products by Price Range",
@@ -12,6 +13,25 @@ test.describe(
   () => {
     for (const { min, max, label, description } of priceRangeCases) {
       test(`Price range: ${label}`, async ({ request }) => {
+        await setAllureMeta({
+          title: `Filters - Price Range: ${label}`,
+          description: description,
+          severity: "normal",
+          priority: "P1",
+          owner: "QA Team",
+          suite: "Products",
+          feature: "Price Filter",
+          parameters: {
+            Browser: test.info().project.name,
+            Endpoint: "GET /products",
+            Method: "GET",
+            FilterType: "Price Range",
+            MinPrice: min.toString(),
+            MaxPrice: max.toString(),
+            QueryParam: `between=price,${min},${max}`,
+            ExpectedStatus: "200",
+          },
+        });
         const endpoint = `/products?${BASE_PRODUCT_QUERY}&between=price,${min},${max}`;
 
         await test.step("Send request and verify status", async () => {

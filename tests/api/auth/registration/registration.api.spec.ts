@@ -7,6 +7,7 @@ import {
   invalidEmails,
   emptyLikePasswords,
 } from "../../../../test-data/auth-validation";
+import { setAllureMeta } from "../../../../utils/allure-utils";
 
 type ApiErrorBody = Record<string, string[]>;
 
@@ -15,6 +16,23 @@ test.describe("Register user API", { tag: ["@api", "@auth"] }, () => {
     "Successful user registration",
     { tag: ["@smoke"] },
     async ({ request }) => {
+      await setAllureMeta({
+        title: "Register - Successful User Registration",
+        description:
+          "Verify that new user can register with valid data and receives 201 with user object (no password)",
+        severity: "critical",
+        priority: "P0",
+        owner: "QA Team",
+        suite: "Auth",
+        feature: "Register",
+        parameters: {
+          Browser: test.info().project.name,
+          Endpoint: "POST /users/register",
+          Method: "POST",
+          RequestBody: "{ email, password, first_name, last_name and so on}",
+          ExpectedStatus: "201",
+        },
+      });
       const user = createUser();
       const response = await request.post("/users/register", {
         data: user,
@@ -37,6 +55,23 @@ test.describe("Register user API", { tag: ["@api", "@auth"] }, () => {
         tag: ["@negative", "@password-policy"],
       },
       async ({ request }) => {
+        await setAllureMeta({
+          title: `Register - Weak Password: ${item.label}`,
+          description: `Verify registration fails with 422 when password is too weak: ${item.label}`,
+          severity: "normal",
+          priority: "P1",
+          owner: "QA Team",
+          suite: "Auth",
+          feature: "Register",
+          parameters: {
+            Browser: test.info().project.name,
+            Endpoint: "POST /users/register",
+            Method: "POST",
+            TestCase: `Weak password: ${item.label}`,
+            ExpectedError: item.expectedPattern.toString(),
+            ExpectedStatus: "422",
+          },
+        });
         const user = createUser({ password: item.password });
 
         const response = await request.post("/users/register", {
@@ -60,6 +95,23 @@ test.describe("Register user API", { tag: ["@api", "@auth"] }, () => {
         tag: ["@negative", "@validation"],
       },
       async ({ request }) => {
+        await setAllureMeta({
+          title: `Register - Empty-like Password: ${item.label}`,
+          description: `Verify registration fails with 422 when password is empty-like: ${item.label}`,
+          severity: "normal",
+          priority: "P1",
+          owner: "QA Team",
+          suite: "Auth",
+          feature: "Register",
+          parameters: {
+            Browser: test.info().project.name,
+            Endpoint: "POST /users/register",
+            Method: "POST",
+            TestCase: `Empty-like password: ${item.label}`,
+            ExpectedError: item.expectedPattern.toString(),
+            ExpectedStatus: "422",
+          },
+        });
         const user = createUser({ password: item.password });
 
         const response = await request.post("/users/register", {
@@ -80,6 +132,23 @@ test.describe("Register user API", { tag: ["@api", "@auth"] }, () => {
       `Email format "${item.label}": ${item.shouldFail ? "should fail" : "should pass"}`,
       { tag: ["@negative", "@validation"] },
       async ({ request }) => {
+        await setAllureMeta({
+          title: `Register - Email Format: ${item.label}`,
+          description: `Verify email format validation: ${item.label} - ${item.shouldFail ? "should fail" : "should pass"}`,
+          severity: "normal",
+          priority: "P1",
+          owner: "QA Team",
+          suite: "Auth",
+          feature: "Register",
+          parameters: {
+            Browser: test.info().project.name,
+            Endpoint: "POST /users/register",
+            Method: "POST",
+            TestCase: `Email format: ${item.label}`,
+            ShouldFail: item.shouldFail.toString(),
+            ExpectedStatus: item.shouldFail ? "422" : "201 or 409",
+          },
+        });
         test.skip(
           item.shouldFail,
           "Backend does not validate email format strictly - validation is UI-only",
@@ -119,6 +188,23 @@ test.describe("Register user API", { tag: ["@api", "@auth"] }, () => {
         tag: ["@negative", "@validation"],
       },
       async ({ request }) => {
+        await setAllureMeta({
+          title: `Register - Missing Required Field: ${field}`,
+          description: `Verify registration fails with 422 when required field "${field}" is missing`,
+          severity: "normal",
+          priority: "P1",
+          owner: "QA Team",
+          suite: "Auth",
+          feature: "Register",
+          parameters: {
+            Browser: test.info().project.name,
+            Endpoint: "POST /users/register",
+            Method: "POST",
+            MissingField: field,
+            ExpectedError: "required",
+            ExpectedStatus: "422",
+          },
+        });
         const user = createUser();
         const payload: any = { ...user };
         delete payload[field];
@@ -142,6 +228,23 @@ test.describe("Register user API", { tag: ["@api", "@auth"] }, () => {
       tag: ["@negative", "@conflict"],
     },
     async ({ request }) => {
+      await setAllureMeta({
+        title: "Register - Duplicate Email Conflict",
+        description:
+          "Verify that registering with an already-used email returns 409 Conflict",
+        severity: "normal",
+        priority: "P1",
+        owner: "QA Team",
+        suite: "Auth",
+        feature: "Register",
+        parameters: {
+          Browser: test.info().project.name,
+          Endpoint: "POST /users/register",
+          Method: "POST",
+          TestCase: "Duplicate email registration",
+          ExpectedStatus: "409",
+        },
+      });
       const duplicateEmail: string = `dup-${Date.now()}@example.com`;
       const firstResponse = await request.post("/users/register", {
         data: createUser({ email: duplicateEmail }),

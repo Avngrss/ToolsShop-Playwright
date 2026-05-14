@@ -28,6 +28,7 @@ test.describe("Login UI", { tag: ["@ui", "@auth"] }, () => {
         parameters: {
           Browser: test.info().project.name,
           "User Role": "Customer",
+          Coverage: "UI + A11y + Visual Regression",
         },
       });
 
