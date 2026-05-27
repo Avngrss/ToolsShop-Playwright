@@ -1,4 +1,4 @@
-import { test, expect } from "../../../fixtures/data/users.fixture";
+import { test, expect } from "../../../fixtures";
 import { ForgotPassword } from "../../../pages/AuthPages/ForgotPassword/ForgotPassword";
 import { setAllureMeta } from "../../../utils/allure-utils";
 

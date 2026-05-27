@@ -1,4 +1,4 @@
-import { test, expect } from "../../../fixtures/data/users.fixture";
+import { test, expect } from "../../../fixtures";
 import { HomePage } from "../../../pages/HomePage/HomePage";
 import { setAllureMeta } from "../../../utils/allure-utils";
 
