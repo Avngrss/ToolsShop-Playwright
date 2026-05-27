@@ -1,5 +1,5 @@
 import path from "path";
-import { test, expect } from "../../../fixtures/data/users.fixture";
+import { test, expect } from "../../../fixtures";
 import { ContactUsPage } from "../../../pages/ContactUs/ContactUsPage";
 import { createContactUsData } from "../../../test-data/contact-us";
 import { setAllureMeta } from "../../../utils/allure-utils";

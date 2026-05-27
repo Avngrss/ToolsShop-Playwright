@@ -1,6 +1,6 @@
 import { APIRequestContext } from "@playwright/test";
-import { LoginResponse } from "../../types/auth";
-import { testUser } from "../../utils/envUser";
+import { LoginResponse } from "../types/auth";
+import { testUser } from "../utils/envUser";
 
 const API_BASE =
   process.env.API_BASE_URL || "https://api.practicesoftwaretesting.com";

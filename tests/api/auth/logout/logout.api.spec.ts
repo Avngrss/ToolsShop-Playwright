@@ -1,14 +1,11 @@
-import { APIResponse, expect, test } from "@playwright/test";
-import { loginApi } from "../../../../fixtures/api/api-login.helpers";
+import { expect, test } from "../../../../fixtures";
 import { setAllureMeta } from "../../../../utils/allure-utils";
 
 test.describe("Logout API", { tag: ["@api", "@auth"] }, () => {
   test(
     "Should successfully logout",
     { tag: ["@smoke"] },
-    async ({ request, playwright }) => {
-      const apiClient = await loginApi(request, playwright);
-
+    async ({ authRequest }: { authRequest: any }) => {
       await setAllureMeta({
         title: "Logout - Successful Logout",
         description:
@@ -27,21 +24,17 @@ test.describe("Logout API", { tag: ["@api", "@auth"] }, () => {
         },
       });
 
-      try {
-        let response: APIResponse;
-        await test.step("Send logout request", async () => {
-          response = await apiClient.get("/users/logout");
-        });
+      let response: any;
+      await test.step("Send logout request", async () => {
+        response = await authRequest.get("/users/logout");
+      });
 
-        await test.step("Verify 200 status and success message", async () => {
-          expect(response.status()).toBe(200);
-          expect(await response.json()).toMatchObject({
-            message: "Successfully logged out",
-          });
+      await test.step("Verify 200 status and success message", async () => {
+        expect(response.status()).toBe(200);
+        expect(await response.json()).toMatchObject({
+          message: "Successfully logged out",
         });
-      } finally {
-        await apiClient.dispose();
-      }
+      });
     },
   );
 });

@@ -1,9 +1,10 @@
-import { test as base, expect } from "@playwright/test";
+import { test as base, expect } from "./base.fixture";
 import * as fs from "fs";
 import path from "path";
 
-const baseTest = base.extend({});
-baseTest.afterEach(async ({}, testInfo) => {
+export const test = base.extend({});
+
+test.afterEach(async ({}, testInfo) => {
   if (testInfo.status !== testInfo.expectedStatus) {
     const outputDir = testInfo.outputDir;
     if (fs.existsSync(outputDir)) {
@@ -28,5 +29,4 @@ baseTest.afterEach(async ({}, testInfo) => {
   }
 });
 
-export const test = baseTest;
 export { expect };
