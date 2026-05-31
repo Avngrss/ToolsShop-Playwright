@@ -68,6 +68,11 @@ test.describe("Registration UI", { tag: ["@ui", "@auth"] }, () => {
       suite: "Registration UI",
       feature: "Authentication",
       qaseCaseId: tc.qaseCaseId,
+      parameters: {
+        Browser: test.info().project.name,
+        "User Role": "New user",
+        Coverage: "UI + A11y + Visual Regression",
+      },
     });
 
     await test.step("Submit empty form", async () => {
@@ -102,6 +107,11 @@ test.describe("Registration UI", { tag: ["@ui", "@auth"] }, () => {
       suite: "Registration UI",
       feature: "Authentication",
       qaseCaseId: tc.qaseCaseId,
+      parameters: {
+        Browser: test.info().project.name,
+        "User Role": "New user",
+        Coverage: "UI + A11y + Visual Regression",
+      },
     });
 
     await test.step("Submit form with weak password", async () => {
@@ -142,6 +152,11 @@ test.describe("Registration UI", { tag: ["@ui", "@auth"] }, () => {
       suite: "Registration UI",
       feature: "Authentication",
       qaseCaseId: tc.qaseCaseId,
+      parameters: {
+        Browser: test.info().project.name,
+        "User Role": "New user",
+        Coverage: "UI + A11y + Visual Regression",
+      },
     });
 
     await test.step("Submit form with existing email", async () => {
