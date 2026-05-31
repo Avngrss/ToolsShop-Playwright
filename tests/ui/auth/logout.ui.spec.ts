@@ -15,6 +15,7 @@ test.describe("Logout API", { tag: ["@api", "@auth"] }, () => {
         owner: "QA Team",
         suite: "Auth",
         feature: "Logout",
+        qaseCaseId: "?suite=16&case=45",
         parameters: {
           Browser: test.info().project.name,
           Endpoint: "GET /users/logout",

@@ -16,6 +16,16 @@ test.describe("Cart API", { tag: ["@api", "@cart", "@smoke"] }, () => {
       severity: "critical",
       priority: "P0",
       owner: "QA Team",
+      suite: "Cart",
+      feature: "Add to Cart",
+      parameters: {
+        Browser: test.info().project.name,
+        Endpoint: "POST /cart/items",
+        Method: "POST",
+        RequestBody:
+          "{ productId: <valid>, quantity: <valid>, guestSession: true }",
+        ExpectedStatus: "201",
+      },
     });
 
     let cartId: string;
@@ -69,6 +79,25 @@ test.describe("Cart API", { tag: ["@api", "@cart", "@smoke"] }, () => {
     request,
     setupCart,
   }) => {
+    await setAllureMeta({
+      title: "Cart API - Add Product with Invalid ID (Negative)",
+      description:
+        "Verify that adding a product with invalid ID returns 422 and keeps cart unchanged",
+      severity: "critical",
+      priority: "P1",
+      owner: "QA Team",
+      suite: "Cart",
+      feature: "Add to Cart - Validation",
+      parameters: {
+        Browser: test.info().project.name,
+        Endpoint: "POST /cart/items",
+        Method: "POST",
+        RequestBody: "{ productId: <invalid>, quantity: 1 }",
+        ExpectedStatus: "422",
+        CartState: "unchanged",
+        ErrorField: "productId",
+      },
+    });
     const { cartId, productId } = await setupCart();
     const invalidProductId = "00000000-0000-0000-0000-000000000000";
 
@@ -101,6 +130,25 @@ test.describe("Cart API", { tag: ["@api", "@cart", "@smoke"] }, () => {
     request,
     setupCart,
   }) => {
+    await setAllureMeta({
+      title: "Cart API - Add Product with Negative Quantity (Negative)",
+      description:
+        "Verify that sending a negative quantity returns 422 and keeps cart unchanged",
+      severity: "critical",
+      priority: "P1",
+      owner: "QA Team",
+      suite: "Cart",
+      feature: "Add to Cart - Validation",
+      parameters: {
+        Browser: test.info().project.name,
+        Endpoint: "POST /cart/items",
+        Method: "POST",
+        RequestBody: "{ productId: <valid>, quantity: <negative> }",
+        ExpectedStatus: "422",
+        CartState: "unchanged",
+        ErrorField: "quantity",
+      },
+    });
     const { cartId, productId } = await setupCart();
 
     await test.step("Try to add negative quantity", async () => {
@@ -119,6 +167,24 @@ test.describe("Cart API", { tag: ["@api", "@cart", "@smoke"] }, () => {
   });
 
   test("Can remove item from cart", async ({ request, setupCart }) => {
+    await setAllureMeta({
+      title: "Cart API - Remove Item from Cart",
+      description:
+        "Verify that an existing item can be successfully removed from the cart",
+      severity: "critical",
+      priority: "P1",
+      owner: "QA Team",
+      suite: "Cart",
+      feature: "Remove from Cart",
+      parameters: {
+        Browser: test.info().project.name,
+        Endpoint: "DELETE /cart/items/{itemId}",
+        Method: "DELETE",
+        RequestBody: "{ itemId: <valid> }",
+        ExpectedStatus: "200",
+        CartState: "item removed, totals recalculated",
+      },
+    });
     const { cartId, productId } = await setupCart();
 
     await test.step("Remove product", async () => {
