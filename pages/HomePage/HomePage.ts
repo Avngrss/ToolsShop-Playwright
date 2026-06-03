@@ -16,6 +16,7 @@ export class HomePage {
   readonly PaginationComponent: PaginationComponent;
   readonly productList: Locator;
   readonly emptyState: Locator;
+  readonly firstProduct: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -29,9 +30,17 @@ export class HomePage {
       "div[class='col-md-9'] div[class='container']",
     );
     this.emptyState = page.locator('[data-test="no-results"]');
+    this.firstProduct = page.getByRole("heading", {
+      name: "Combination Pliers",
+      level: 5,
+    });
   }
 
   async goto(): Promise<void> {
     await this.page.goto("/");
+  }
+
+  async gotoProductPage(): Promise<void> {
+    await this.firstProduct.click();
   }
 }

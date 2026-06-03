@@ -1,4 +1,3 @@
-// fixtures/cart-ui.fixture.ts
 import { test as base, expect } from "./a11y.fixture";
 import type { CartUiFixtures } from "../types/fixtures";
 

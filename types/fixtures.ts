@@ -46,8 +46,13 @@ export interface CartUiFixtures {
     quantity?: number,
   ) => Promise<{ cartId: string; productId: string }>;
 }
+
+export interface TestUserFixtures {
+  createTestUser: () => Promise<{ email: string; password: string }>;
+}
 export type AppFixtures = UserFixtures &
   AuthFixtures &
   CartFixtures &
   A11yFixtures &
-  CartUiFixtures;
+  CartUiFixtures &
+  TestUserFixtures;
