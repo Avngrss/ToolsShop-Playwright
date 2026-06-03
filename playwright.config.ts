@@ -37,7 +37,7 @@ export default defineConfig({
   },
   projects: [
     {
-      name: "ui",
+      name: "ui-chromium",
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 1920, height: 1080 },
@@ -45,6 +45,24 @@ export default defineConfig({
       },
 
       testMatch: /.*\.ui\.spec\.ts$/,
+    },
+    {
+      name: "ui-firefox",
+      testMatch: /.*\.ui\.spec\.ts$/,
+      use: {
+        ...devices["Desktop Firefox"],
+        baseURL: process.env.BASE_URL,
+        viewport: { width: 1920, height: 1080 },
+      },
+    },
+    {
+      name: "ui-webkit",
+      testMatch: /.*\.ui\.spec\.ts$/,
+      use: {
+        ...devices["Desktop Safari"],
+        baseURL: process.env.BASE_URL,
+        viewport: { width: 1920, height: 1080 },
+      },
     },
     {
       name: "api",
