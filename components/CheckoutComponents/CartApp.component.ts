@@ -1,17 +1,15 @@
 import { Page, Locator } from "@playwright/test";
-import { Header } from "../../components/Header.component";
 
-export class CartPage {
+export class CartAppComponent {
   readonly page: Page;
   readonly emptyMessage: Locator;
   readonly qtyInput: Locator;
   readonly deleteBtn: Locator;
   readonly toastContainer: Locator;
-  readonly header: Header;
+  readonly proceedBtn: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.header = new Header(page);
     this.emptyMessage = page.getByText(
       "The cart is empty. Nothing to display.",
       { exact: true },
@@ -19,10 +17,7 @@ export class CartPage {
     this.qtyInput = page.locator('[data-test="product-quantity"]');
     this.deleteBtn = page.locator(".btn.btn-danger");
     this.toastContainer = page.locator("#toast-container");
-  }
-
-  async goto(): Promise<void> {
-    await this.page.goto("/checkout");
+    this.proceedBtn = page.locator('[data-test="proceed-1"]');
   }
 
   async updateQuantity(qty: number): Promise<void> {
@@ -40,5 +35,9 @@ export class CartPage {
 
   async hasItems(): Promise<boolean> {
     return await this.qtyInput.isVisible();
+  }
+
+  async proceedToCheckout(): Promise<void> {
+    await this.proceedBtn.click();
   }
 }

@@ -1,14 +1,14 @@
 import { HomePage } from "./../../../pages/HomePage/HomePage";
 import { test, expect } from "../../../fixtures";
 import { setAllureMeta } from "../../../utils/allure-utils";
-import { CartPage } from "./../../../pages/CartPage/CartPage";
+import { CheckoutPage } from "../../../pages/CheckoutPage/CheckoutPage";
 
 test.describe("Cart test UI", { tag: ["@ui", "@cart"] }, () => {
-  let cartPage: CartPage;
+  let checkoutPage: CheckoutPage;
   let homePage: HomePage;
 
   test.beforeEach(async ({ page, setupCartUi }) => {
-    cartPage = new CartPage(page);
+    checkoutPage = new CheckoutPage(page);
     await setupCartUi();
     homePage = new HomePage(page);
     await homePage.header.openCart();
@@ -39,15 +39,17 @@ test.describe("Cart test UI", { tag: ["@ui", "@cart"] }, () => {
     });
 
     await test.step("Change quantity to 3", async () => {
-      await cartPage.updateQuantity(3);
+      await checkoutPage.cartAppComponent.updateQuantity(3);
     });
 
     await test.step("Verify toast and badge state", async () => {
       await expect(
-        cartPage.getToastByText("Product quantity updated."),
+        checkoutPage.cartAppComponent.getToastByText(
+          "Product quantity updated.",
+        ),
       ).toBeVisible();
       await expect(async () => {
-        expect(await cartPage.header.getBadgeCount()).toBe(3);
+        expect(await checkoutPage.header.getBadgeCount()).toBe(3);
       }).toPass({ timeout: 5000 });
     });
 
@@ -90,13 +92,17 @@ test.describe("Cart test UI", { tag: ["@ui", "@cart"] }, () => {
     });
 
     await test.step("Remove the only item", async () => {
-      await cartPage.removeItem();
+      await checkoutPage.cartAppComponent.removeItem();
     });
 
     await test.step("Verify empty state and badge reset", async () => {
-      await expect(cartPage.getToastByText("Product deleted.")).toBeVisible();
-      await expect(cartPage.emptyMessage).toBeVisible({ timeout: 5000 });
-      expect(await cartPage.header.getBadgeCount()).toBe(0);
+      await expect(
+        checkoutPage.cartAppComponent.getToastByText("Product deleted."),
+      ).toBeVisible();
+      await expect(checkoutPage.cartAppComponent.emptyMessage).toBeVisible({
+        timeout: 5000,
+      });
+      expect(await checkoutPage.header.getBadgeCount()).toBe(0);
     });
 
     await test.step("Verify A11y & visual baseline", async () => {
