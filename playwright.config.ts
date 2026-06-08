@@ -36,6 +36,7 @@ export default defineConfig({
     external: [],
   },
   projects: [
+    //Major browsers
     {
       name: "ui-chromium",
       use: {
@@ -64,6 +65,7 @@ export default defineConfig({
         viewport: { width: 1920, height: 1080 },
       },
     },
+    //Api project
     {
       name: "api",
       use: {
@@ -73,8 +75,37 @@ export default defineConfig({
           Accept: "application/json",
         },
       },
-
       testMatch: /.*\.api\.spec\.ts$/,
+    },
+    //Adaptive projects
+    {
+      name: "ui-tablet",
+      testMatch: /.*\.responsive\.spec\.ts$/,
+      use: {
+        ...devices["iPad Mini"],
+        hasTouch: true,
+        baseURL: process.env.BASE_URL,
+      },
+    },
+    {
+      name: "ui-android",
+      testMatch: /.*\.responsive\.spec\.ts$/,
+      use: {
+        ...devices["Pixel 5"],
+        hasTouch: true,
+        isMobile: true,
+        baseURL: process.env.BASE_URL,
+      },
+    },
+    {
+      name: "ui-ios",
+      testMatch: /.*\.responsive\.spec\.ts$/,
+      use: {
+        ...devices["iPhone 13"],
+        hasTouch: true,
+        isMobile: true,
+        baseURL: process.env.BASE_URL,
+      },
     },
   ],
 });
