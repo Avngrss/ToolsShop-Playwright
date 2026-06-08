@@ -27,7 +27,7 @@ export default defineConfig({
     colorScheme: "light",
     timezoneId: "Europe/Moscow",
     locale: "en-US",
-    baseURL: process.env.BASE_URL,
+    baseURL: process.env.BASE_URL || "https://practicesoftwaretesting.com",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
