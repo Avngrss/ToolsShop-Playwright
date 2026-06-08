@@ -45,9 +45,13 @@ jobs:
         run: npx playwright test --project=api --reporter=line,allure-playwright
         env:
           API_URL: ${{ secrets.API_URL }}
-          BASE_URL: ${{ secrets.BASE_URL }}
-          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+          TEST_ADMIN_PASSWORD: ${{ secrets.TEST_ADMIN_PASSWORD }}
+
+          BASE_URL: ${{ vars.BASE_URL }}
+          TEST_USER_EMAIL: ${{ vars.TEST_USER_EMAIL }}
+          TEST_ADMIN_EMAIL: ${{ vars.TEST_ADMIN_EMAIL }}
+          QASE_BASE_URL: ${{ vars.QASE_BASE_URL }}
 
       - name: Upload API results
         uses: actions/upload-artifact@v4
@@ -57,6 +61,7 @@ jobs:
           path: allure-results/
           retention-days: 7
           if-no-files-found: warn
+
   ui-tests:
     name: UI Tests (${{ matrix.browser }})
     runs-on: ubuntu-latest
@@ -96,9 +101,14 @@ jobs:
         run: npx playwright test --project=ui-${{ matrix.browser }} --reporter=line,allure-playwright
         env:
           API_URL: ${{ secrets.API_URL }}
-          BASE_URL: ${{ secrets.BASE_URL }}
-          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+          TEST_ADMIN_PASSWORD: ${{ secrets.TEST_ADMIN_PASSWORD }}
+
+          # 📦 Variables
+          BASE_URL: ${{ vars.BASE_URL }}
+          TEST_USER_EMAIL: ${{ vars.TEST_USER_EMAIL }}
+          TEST_ADMIN_EMAIL: ${{ vars.TEST_ADMIN_EMAIL }}
+          QASE_BASE_URL: ${{ vars.QASE_BASE_URL }}
 
       - name: Upload UI results
         if: ${{ always() && (github.event.inputs.cross_browser == 'true' || matrix.browser == 'chromium') }}
@@ -108,6 +118,7 @@ jobs:
           path: allure-results/
           retention-days: 7
           if-no-files-found: warn
+
   generate-report:
     name: Generate Allure Report
     runs-on: ubuntu-latest
