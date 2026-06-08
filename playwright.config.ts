@@ -1,7 +1,20 @@
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 import path from "path";
+
 dotenv.config({ path: path.resolve(__dirname, ".env") });
+
+const getBaseUrl = () =>
+  process.env.BASE_URL || "https://practicesoftwaretesting.com";
+const getApiUrl = () =>
+  process.env.API_URL || "https://api.practicesoftwaretesting.com";
+
+console.log(
+  "Config loaded | BASE_URL:",
+  getBaseUrl(),
+  "| API_URL:",
+  getApiUrl(),
+);
 
 export default defineConfig({
   testDir: "./tests",
@@ -10,6 +23,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 2 : 4,
   reporter: [["line"], ["allure-playwright"]],
+
   expect: {
     toHaveScreenshot: {
       maxDiffPixels: 100,
@@ -20,6 +34,7 @@ export default defineConfig({
       scale: "css",
     },
   },
+
   use: {
     viewport: { width: 1920, height: 1080 },
     deviceScaleFactor: 1,
@@ -27,24 +42,25 @@ export default defineConfig({
     colorScheme: "light",
     timezoneId: "Europe/Moscow",
     locale: "en-US",
-    baseURL: process.env.BASE_URL || "https://practicesoftwaretesting.com",
+    baseURL: getBaseUrl(),
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
   },
+
   build: {
     external: [],
   },
+
   projects: [
-    //Major browsers
+    // 🔹 Major browsers
     {
       name: "ui-chromium",
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 1920, height: 1080 },
-        baseURL: process.env.BASE_URL,
+        baseURL: getBaseUrl(),
       },
-
       testMatch: /.*\.ui\.spec\.ts$/,
     },
     {
@@ -52,7 +68,7 @@ export default defineConfig({
       testMatch: /.*\.ui\.spec\.ts$/,
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: process.env.BASE_URL,
+        baseURL: getBaseUrl(),
         viewport: { width: 1920, height: 1080 },
       },
     },
@@ -61,30 +77,30 @@ export default defineConfig({
       testMatch: /.*\.ui\.spec\.ts$/,
       use: {
         ...devices["Desktop Safari"],
-        baseURL: process.env.BASE_URL,
+        baseURL: getBaseUrl(),
         viewport: { width: 1920, height: 1080 },
       },
     },
-    //Api project
+
+    // 🔹 API project
     {
       name: "api",
       use: {
-        baseURL: process.env.API_URL,
-        browserName: undefined,
+        baseURL: getApiUrl(), //
+        browserName: undefined as any,
         extraHTTPHeaders: {
           Accept: "application/json",
         },
       },
       testMatch: /.*\.api\.spec\.ts$/,
     },
-    //Adaptive projects
     {
       name: "ui-tablet",
       testMatch: /.*\.responsive\.spec\.ts$/,
       use: {
         ...devices["iPad Mini"],
         hasTouch: true,
-        baseURL: process.env.BASE_URL,
+        baseURL: getBaseUrl(),
       },
     },
     {
@@ -94,7 +110,7 @@ export default defineConfig({
         ...devices["Pixel 5"],
         hasTouch: true,
         isMobile: true,
-        baseURL: process.env.BASE_URL,
+        baseURL: getBaseUrl(),
       },
     },
     {
@@ -104,7 +120,7 @@ export default defineConfig({
         ...devices["iPhone 13"],
         hasTouch: true,
         isMobile: true,
-        baseURL: process.env.BASE_URL,
+        baseURL: getBaseUrl(),
       },
     },
   ],
